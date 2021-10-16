@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    public function boot()
+    {
+        app(\Illuminate\Cache\RateLimiter::class)->for('global', function () {
+            return \Illuminate\Cache\RateLimiting\Limit::perMinute(60)->by(request()->ip());
+        });
+    }
+}
