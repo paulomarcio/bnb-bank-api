@@ -30,7 +30,7 @@ class TransactionDao
             ->where('status', TransactionStatusEnum::ACCEPTED);
 
         if(!empty($date)){
-            $transactions->whereRaw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m')", $date);
+            $transactions->whereRaw("DATE_FORMAT(created_at, '%Y-%m')", $date);
         }
 
         return $transactions->sum('amount');
@@ -43,7 +43,7 @@ class TransactionDao
             ->where('status', TransactionStatusEnum::ACCEPTED);
 
         if(!empty($date)){
-            $transactions->whereRaw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m')", $date);
+            $transactions->whereRaw("DATE_FORMAT(created_at, '%Y-%m')", $date);
         }
 
         return $transactions->sum('amount');
@@ -57,7 +57,7 @@ class TransactionDao
     public static function getMonthsWithExpensesByUser(User $user)
     {
         return Transaction::select([
-            DB::raw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m') AS transaction_date")
+            DB::raw("DATE_FORMAT(transactions.created_at, '%Y-%m') AS transaction_date")
         ])
             ->where('type', TransactionTypeEnum::EXPENSE)
             ->where('account_id', $user->account->id)
@@ -69,7 +69,7 @@ class TransactionDao
     {
         return Transaction::where('account_id', $user->account->id)
             ->where('type', TransactionTypeEnum::EXPENSE)
-            ->whereRaw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m')", $date)
+            ->whereRaw("DATE_FORMAT(created_at, '%Y-%m')", $date)
             ->orderBy('created_at', 'desc')
             ->get();
     }
@@ -77,7 +77,7 @@ class TransactionDao
     public static function getMonthsWithIncomesByUser(User $user)
     {
         return Transaction::select([
-            DB::raw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m') AS transaction_date")
+            DB::raw("DATE_FORMAT(transactions.created_at, '%Y-%m') AS transaction_date")
         ])
             ->where('type', TransactionTypeEnum::INCOME)
             ->where('status', TransactionStatusEnum::ACCEPTED)
@@ -91,7 +91,7 @@ class TransactionDao
         return Transaction::where('account_id', $user->account->id)
             ->where('type', TransactionTypeEnum::INCOME)
             ->where('status', TransactionStatusEnum::ACCEPTED)
-            ->whereRaw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m')", $date)
+            ->whereRaw("DATE_FORMAT(created_at, '%Y-%m')", $date)
             ->orderBy('created_at', 'desc')
             ->get();
     }
@@ -99,7 +99,7 @@ class TransactionDao
     public static function getMonthsWithTransactionsByUser(User $user)
     {
         return Transaction::select([
-            DB::raw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m') AS transaction_date")
+            DB::raw("DATE_FORMAT(transactions.created_at, '%Y-%m') AS transaction_date")
         ])
             ->where('status', TransactionStatusEnum::ACCEPTED)
             ->where('account_id', $user->account->id)
@@ -111,7 +111,7 @@ class TransactionDao
     {
         return Transaction::where('account_id', $user->account->id)
             ->where('status', TransactionStatusEnum::ACCEPTED)
-            ->whereRaw("DATE_FORMAT(CAST(created_at AS TIMESTAMP), '%Y-%m')", $date)
+            ->whereRaw("DATE_FORMAT(created_at, '%Y-%m')", $date)
             ->orderBy('created_at', 'desc')
             ->get();
     }
