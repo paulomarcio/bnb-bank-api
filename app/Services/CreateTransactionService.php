@@ -53,6 +53,7 @@ class CreateTransactionService
             'amount' => $amount,
             'description' => $data['description'],
             'check_image' => (!empty($data['check_image'])) ? $data['check_image'] : null,
+            'transaction_date' => (!empty($data['transaction_date'])) ? $data['transaction_date'] : date('Y-m-d'),
             'type' => $data['type'],
             'status' => $status
         ]);
