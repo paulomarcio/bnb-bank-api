@@ -14,6 +14,7 @@
 */
 
 $router->post('/users', ['as' => 'users', 'uses' => 'UsersController@create']);
+$router->get('/users/balance', ['middleware' => 'auth', 'as' => 'users', 'uses' => 'UsersController@balance']);
 $router->post('/sessions', ['as' => 'sessions', 'uses' => 'SessionsController@create']);
 $router->get('/transactions', ['middleware' => 'auth', 'as' => 'transactions.index', 'uses' => 'TransactionsController@index']);
 $router->post('/transactions', ['middleware' => 'auth', 'as' => 'transactions.create', 'uses' => 'TransactionsController@create']);
