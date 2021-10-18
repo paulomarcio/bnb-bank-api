@@ -82,7 +82,6 @@ class TransactionDao
         ])
             ->distinct()
             ->where('type', TransactionTypeEnum::INCOME)
-            ->where('status', TransactionStatusEnum::ACCEPTED)
             ->where('account_id', $user->account->id)
             ->orderBy('income_date', 'desc')
             ->get();
@@ -92,7 +91,6 @@ class TransactionDao
     {
         return Transaction::where('account_id', $user->account->id)
             ->where('type', TransactionTypeEnum::INCOME)
-            ->where('status', TransactionStatusEnum::ACCEPTED)
             ->whereRaw("TO_CHAR(transaction_date, 'YYYY-DD') = '{$date}'")
             ->orderBy('transaction_date', 'desc')
             ->get();
