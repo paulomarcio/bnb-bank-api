@@ -15,10 +15,10 @@ class GetTransactionsGroupedByMonthService
 
         foreach($months as $month){
             array_push($transactions, [
-                'period' => $month->transaction_date,
-                'incomes' => ['amount' => TransactionDao::sumIncomesFromUser($user, $month->transaction_date)],
-                'expenses' => ['amount' => TransactionDao::sumExpensesFromUser($user, $month->transaction_date)],
-                'transactions' => TransactionDao::getTransactionsByMonthYearAndUser($user, $month->transaction_date)
+                'period' => $month->operation_date,
+                'incomes' => ['amount' => TransactionDao::sumIncomesFromUser($user, $month->operation_date)],
+                'expenses' => ['amount' => TransactionDao::sumExpensesFromUser($user, $month->operation_date)],
+                'transactions' => TransactionDao::getTransactionsByMonthYearAndUser($user, $month->operation_date)
             ]);
         }
 

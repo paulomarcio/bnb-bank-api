@@ -15,8 +15,8 @@ class GetExpensesGroupedByMonthService
 
         foreach($months as $month){
             array_push($expenses, [
-                'period' => $month->transaction_date,
-                'expenses' => TransactionDao::getExpensesByMonthYearAndUser($user, $month->transaction_date)
+                'period' => $month->expense_date,
+                'expenses' => TransactionDao::getExpensesByMonthYearAndUser($user, $month->expense_date)
             ]);
         }
 

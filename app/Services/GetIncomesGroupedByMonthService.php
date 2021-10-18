@@ -15,8 +15,8 @@ class GetIncomesGroupedByMonthService
 
         foreach($months as $month){
             array_push($incomes, [
-                'period' => $month->transaction_date,
-                'incomes' => TransactionDao::getIncomesByMonthYearAndUser($user, $month->transaction_date)
+                'period' => $month->income_date,
+                'incomes' => TransactionDao::getIncomesByMonthYearAndUser($user, $month->income_date)
             ]);
         }
 
