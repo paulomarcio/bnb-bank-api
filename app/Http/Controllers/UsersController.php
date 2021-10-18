@@ -17,6 +17,8 @@ class UsersController extends Controller
             $user = CreateUserService::execute($request);
             CreateAccountService::execute($user);
 
+            $user->account = $user->account;
+
             return response()->json($user, 201);
         }catch(BadRequestException $exception){
             return response()->json(['message' => $exception->getMessage()], 400);
